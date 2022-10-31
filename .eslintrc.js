@@ -43,6 +43,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     indent: ['error', 2],
     'jsx-a11y/anchor-is-valid': 0,
+    'react/function-component-definition': 'off',
   },
   settings: {
     'import/resolver': {
