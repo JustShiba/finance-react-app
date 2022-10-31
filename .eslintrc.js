@@ -44,6 +44,7 @@ module.exports = {
     indent: ['error', 2],
     'jsx-a11y/anchor-is-valid': 0,
     'react/function-component-definition': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     'import/resolver': {

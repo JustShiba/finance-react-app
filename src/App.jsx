@@ -7,20 +7,18 @@ import Header from './components/Header';
 function App() {
   return (
     <BrowserRouter>
-      <div className="global_background">
-        <Header />
-        <Container
-          style={{
-            display: 'flex',
-            minHeight: '80vh',
-            marginTop: '35px',
-            justifyContent: 'center',
-          }}
-          maxWidth="xl"
-        >
-          <AppRouter />
-        </Container>
-      </div>
+      <Header />
+      <Container
+        style={{
+          display: 'flex',
+          minHeight: '80vh',
+          marginTop: '35px',
+          justifyContent: 'center',
+        }}
+        maxWidth="xl"
+      >
+        <AppRouter />
+      </Container>
     </BrowserRouter>
   );
 }

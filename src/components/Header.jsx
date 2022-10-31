@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { publicRoutes } from '../routes';
 
 const Header = () => {
@@ -41,8 +41,6 @@ const Header = () => {
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -130,7 +128,9 @@ const Header = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Avatar alt="Illia Lisitsa" src="/IMG_1369.jpg" />
+            <Tooltip title="Illia Lisitsa">
+              <Avatar alt="Illia Lisitsa" src="/IMG_1369.jpg" />
+            </Tooltip>
           </Box>
         </Toolbar>
       </Container>

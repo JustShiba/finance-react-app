@@ -1,0 +1,9 @@
+.add_purchase_inputs {
+    width: 100%;
+}
+
+@media (min-width: 950px) {
+    .add_purchase_inputs {
+        width: 60%;
+    }
+}
