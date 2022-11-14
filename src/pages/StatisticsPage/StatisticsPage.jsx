@@ -1,44 +1,46 @@
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from 'react';
+import { Audio } from 'react-loader-spinner';
 import MyTable from '../../components/table/Table';
+import { useItemStore } from '../../store';
 
-const createData = (type, title, price) => ({ type, title, price });
+const StatisticsPage = () => {
+  const [items, setItems] = useState([]);
+  const { fetchAllItems, getItems, getIsLoading } =
+    useItemStore(({ fetchAllItems, getItems, getIsLoading }) =>
+      ({ fetchAllItems, getItems, getIsLoading }));
 
-const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
+  useEffect(() => {
+    const fetchItems = async () => {
+      await fetchAllItems();
+      const allItems = getItems();
+      setItems(allItems);
+    };
 
-  createData('1', 305, 3.7),
-  createData('2', 452, 25.0),
-  createData('3', 262, 16.0),
-  createData('4', 159, 6.0),
-  createData('5', 356, 16.0),
-  createData('6', 408, 3.2),
-  createData('7', 237, 9.0),
-  createData('8', 375, 0.0),
-  createData('9', 518, 26.0),
-  createData('10', 392, 0.2),
-  createData('11', 318, 0),
-  createData('12', 360, 19.0),
-  createData('13', 437, 18.0),
-];
+    fetchItems();
+  }, [fetchAllItems, getItems]);
 
-const StatisticsPage = () => (
-  <Box sx={{ width: '80%' }}>
-    <Paper sx={{ width: '100%', mb: 2 }} />
-    <MyTable rows={rows} />
-  </Box>
-);
+  useEffect(() => {
+  }, [getItems]);
+
+  return (
+    <Box sx={{ width: '80%' }}>
+      <Paper sx={{ width: '100%', mb: 2 }} />
+
+      {getIsLoading() ? (
+        <Audio
+          wrapperStyle={{ justifyContent: 'center' }}
+          height="80"
+          width="80"
+          radius="9"
+          color="rgb(0, 127, 255)"
+          ariaLabel="loading"
+        />
+      ) :
+        <MyTable rows={items} />}
+    </Box>
+  );
+};
 
 export default StatisticsPage;

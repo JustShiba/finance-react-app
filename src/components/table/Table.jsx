@@ -26,7 +26,7 @@ const getComparator = (order, orderBy) => order === 'desc'
 
 const MyTable = ({ rows }) => {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('title');
+  const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -38,19 +38,19 @@ const MyTable = ({ rows }) => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.type);
+      const newSelected = rows.map((n) => n.category);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, type) => {
-    const selectedIndex = selected.indexOf(type);
+  const handleClick = (event, category) => {
+    const selectedIndex = selected.indexOf(category);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, type);
+      newSelected = newSelected.concat(selected, category);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -74,7 +74,7 @@ const MyTable = ({ rows }) => {
     setPage(0);
   };
 
-  const isSelected = (type) => selected.indexOf(type) !== -1;
+  const isSelected = (category) => selected.indexOf(category) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -101,17 +101,17 @@ const MyTable = ({ rows }) => {
             {rows.sort(getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
-                const isItemSelected = isSelected(row.type);
+                const isItemSelected = isSelected(row.category);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.type)}
+                    onClick={(event) => handleClick(event, row.category)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.type}
+                    key={row.itemId}
                     selected={isItemSelected}
                   >
                     <TableCell padding="checkbox">
@@ -129,9 +129,9 @@ const MyTable = ({ rows }) => {
                       scope="row"
                       padding="none"
                     >
-                      {row.title}
+                      {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.type}</TableCell>
+                    <TableCell align="right">{row.category}</TableCell>
                     <TableCell align="right">{row.price}</TableCell>
                   </TableRow>
                 );
